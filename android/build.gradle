@@ -7,6 +7,9 @@ buildscript {
         compileSdkVersion = 30
         targetSdkVersion = 30
         ndkVersion = "21.4.7075529"
+
+        // ISSUE :: Plugin with id 'kotlin-android' not found - fixed
+        kotlinVersion = "1.6.10"
     }
     repositories {
         google()
@@ -21,6 +24,12 @@ buildscript {
         // ISSUE :: Type 'GoogleServicesTask' field 'intermediateDir' without corresponding getter has been annotated with @OutputDirectory
         // Solved :: 4.0.0 -> 4.3.10
         classpath 'com.google.gms:google-services:4.3.10'
+
+        // ISSUE :: Plugin with id 'kotlin-android' not found - fixed
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+
+        // firebase-crashlytics
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
     }
 }
 
