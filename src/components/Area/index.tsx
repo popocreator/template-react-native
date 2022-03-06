@@ -71,20 +71,22 @@ const Area = ({
             width: areaWidth,
           },
         ]}>
-        <View style={[styles.blockList]}>
-          {blockIndexArray.current.map(index => (
-            <Block
-              key={index}
-              index={index}
-              rowIndex={rowIndex(index)}
-              colIndex={colIndex(index)}
-              type={type(selectedIndex, index)}
-              problemNumber={problemNumbers[index] || BLANK}
-              solutionNumber={solutionNumbers[index] || BLANK}
-              areaWidth={areaWidth}
-              onSelect={onSelect}
-            />
-          ))}
+        <View style={[styles.blockListBorder]}>
+          <View style={[styles.blockList]}>
+            {blockIndexArray.current.map(index => (
+              <Block
+                key={index}
+                index={index}
+                rowIndex={rowIndex(index)}
+                colIndex={colIndex(index)}
+                type={type(selectedIndex, index)}
+                problemNumber={problemNumbers[index] || BLANK}
+                solutionNumber={solutionNumbers[index] || BLANK}
+                areaWidth={areaWidth}
+                onSelect={onSelect}
+              />
+            ))}
+          </View>
         </View>
       </View>
     </View>
@@ -102,20 +104,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  blockListBorder: {
+    paddingTop: 8,
+    paddingBottom: 8,
+    marginTop: 10,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f0f1f8',
+    // backgroundColor: 'red',
+    marginHorizontal: 6,
+    shadowColor: '#545a73',
+    shadowOffset: {width: 2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+
+    borderWidth: 1,
+    borderTopColor: '#fff',
+    borderLeftColor: '#fff',
+    borderBottomColor: '#edeff5',
+    borderRightColor: '#edeff5',
+  },
   blockList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    paddingTop: 6,
-    paddingBottom: 6,
-    marginHorizontal: 2,
-    marginTop: 10,
-    borderRadius: 6,
-    backgroundColor: '#e5e6f1',
+    borderRadius: 12,
+    backgroundColor: 'white',
     borderWidth: 2,
-    borderTopColor: '#dcdfec',
-    borderLeftColor: '#dcdfec',
-    borderBottomColor: '#e5e6f1',
-    borderRightColor: '#e5e6f1',
+    borderTopColor: '#d5d9e9',
+    borderLeftColor: '#d5d9e9',
+    borderBottomColor: '#edeff5',
+    borderRightColor: '#edeff5',
+    marginHorizontal: 8,
+    paddingVertical: 2,
   },
 });

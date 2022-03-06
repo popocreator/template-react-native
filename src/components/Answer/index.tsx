@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   shadow: {
     shadowColor: '#545a73',
-    shadowOffset: {width: -2, height: 4},
+    shadowOffset: {width: 2, height: 4},
     shadowOpacity: 0.1,
     shadowRadius: 1,
   },

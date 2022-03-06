@@ -29,7 +29,7 @@ const Block = ({
   onSelect,
 }: Props) => {
   const BLANK = '0';
-  const blockSize = Math.floor(areaWidth / 9) - 2;
+  const blockSize = Math.floor(areaWidth / 9) - 4;
   const space = 3;
 
   return (
@@ -43,6 +43,10 @@ const Block = ({
           },
           [2, 5].includes(rowIndex) ? styles.bottom : {},
           [2, 5].includes(colIndex) ? styles.right : {},
+          index === 0 ? styles.topLeftCard : {},
+          index === 8 ? styles.topRightCard : {},
+          index === 72 ? styles.bottomLeftCard : {},
+          index === 80 ? styles.bottomRightCard : {},
         ]}>
         <TouchableOpacity
           style={[
@@ -52,15 +56,21 @@ const Block = ({
             type === 'selected' ? styles.selected : {},
           ]}
           onPress={() => onSelect(index)}>
-          <Text
+          <View
             style={[
-              styles.text,
-              type === 'related' ? styles.relatedText : {},
-              type === 'selected' ? styles.selectedText : {},
-              problemNumber !== solutionNumber ? styles.mistakeText : {},
+              styles.cardInnerBox,
+              type === 'selected' ? styles.selectedCardInnerBox : {},
             ]}>
-            {problemNumber.replace('.', '')}
-          </Text>
+            <Text
+              style={[
+                styles.text,
+                type === 'related' ? styles.relatedText : {},
+                type === 'selected' ? styles.selectedText : {},
+                problemNumber !== solutionNumber ? styles.mistakeText : {},
+              ]}>
+              {problemNumber.replace('.', '')}
+            </Text>
+          </View>
         </TouchableOpacity>
       </View>
     </>
@@ -85,6 +95,33 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     borderColor: '#f2f3f9',
+  },
+  cardInnerBox: {
+    borderWidth: 1,
+    borderColor: '#f2f3f9',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    borderRadius: 6,
+  },
+  selectedCardInnerBox: {
+    borderLeftColor: '#a6b0cc',
+    borderTopColor: '#a6b0cc',
+    borderBottomColor: '#edeff5',
+    borderRightColor: '#edeff5',
+  },
+  topLeftCard: {
+    borderTopLeftRadius: 6,
+  },
+  topRightCard: {
+    borderTopRightRadius: 6,
+  },
+  bottomLeftCard: {
+    borderBottomLeftRadius: 6,
+  },
+  bottomRightCard: {
+    borderBottomRightRadius: 6,
   },
   shadow: {
     shadowColor: '#545a73',
