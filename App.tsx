@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text, SafeAreaView} from 'react-native';
+import {Text, SafeAreaView, View} from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import SudokuView from './src/screens/SudokuView';
@@ -80,10 +80,17 @@ export default function App() {
   }, []);
 
   return (
-    <SafeAreaView
-      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#edeff5',
+      }}>
       {/* <Text>App Component</Text> */}
-      <SudokuView />
-    </SafeAreaView>
+      <SafeAreaView>
+        <SudokuView />
+      </SafeAreaView>
+    </View>
   );
 }

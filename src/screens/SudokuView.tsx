@@ -8,28 +8,67 @@ import sudoku from '../lib/sudoku';
 type Props = {};
 
 const SudokuView = ({}: Props) => {
+  const [fixedNumbers, setFixedNumbers] = useState<string[]>([]);
   const [problemNumbers, setProblemNumbers] = useState<string[]>([]);
   const [solutionNumbers, setSolutionNumbers] = useState<string[]>([]);
 
   useEffect(() => {
     const problemString: string = sudoku.generate() || '';
     const solutionString: string = sudoku.solve(problemString) || '';
+    setFixedNumbers(problemString.split('') || []);
     setProblemNumbers(problemString.split('') || []);
     setSolutionNumbers(solutionString.split('') || []);
   }, []);
+
+  const isFixedNumber = () => {
+    return fixedNumbers[selectedIndex] !== '.';
+  };
+
+  const isCorrectNumber = () => {
+    return problemNumbers[selectedIndex] === solutionNumbers[selectedIndex];
+  };
+
+  // Index
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const onSelectBlock = (index: number) => {
+    if (index === selectedIndex) {
+      setSelectedIndex(-1);
+    } else {
+      setSelectedIndex(index);
+    }
+  };
+
+  // Answer
+  const onSelectAnswer = (selectedAnswer: string) => {
+    if (isFixedNumber() || isCorrectNumber()) {
+      console.log('맞는 숫자입니다');
+    } else {
+      let newProblemNumbers = [...problemNumbers];
+      newProblemNumbers[selectedIndex] = selectedAnswer;
+      setProblemNumbers(newProblemNumbers);
+    }
+  };
+
+  // Hint
+  // Memo
 
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: '#333',
+        // backgroundColor: '#333',
         height: '100%',
         width: '100%',
         flexDirection: 'column',
         alignItems: 'center',
       }}>
-      <Area problemNumbers={problemNumbers} solutionNumbers={solutionNumbers} />
-      <Answer />
+      <Area
+        problemNumbers={problemNumbers}
+        solutionNumbers={solutionNumbers}
+        selectedIndex={selectedIndex}
+        onSelect={onSelectBlock}
+      />
+      <Answer onChange={onSelectAnswer} />
     </View>
   );
 };

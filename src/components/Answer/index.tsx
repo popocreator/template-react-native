@@ -1,9 +1,17 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 
-type Props = {};
+type Props = {
+  onChange: (number: string) => void;
+};
 
-const Answer = (props: Props) => {
+const Answer = ({onChange}: Props) => {
   const [numbers, setNumbers] = useState([
     '1',
     '2',
@@ -17,13 +25,29 @@ const Answer = (props: Props) => {
   ]);
   return (
     <View style={styles.container}>
-      {numbers.map(number => (
-        <TouchableOpacity style={[styles.card, styles.shadow]}>
-          <Text>{number}</Text>
+      {numbers.map((number, i) => (
+        <TouchableOpacity
+          style={[
+            styles.card,
+            styles.shadow,
+            (i + 1) % 5 === 0
+              ? {
+                  marginRight: 0,
+                }
+              : {
+                  marginRight: 10,
+                },
+          ]}
+          onPress={() => onChange(number)}>
+          <Text style={styles.cardText}>{number}</Text>
         </TouchableOpacity>
       ))}
-      <TouchableOpacity style={[styles.card, styles.shadow]}>
-        <Text>X</Text>
+      <TouchableOpacity
+        style={[styles.card, styles.shadow, styles.cancelCard]}
+        onPress={() => onChange('.')}>
+        <View style={styles.cancel}>
+          <Text style={[styles.cardText, styles.cancelText]}>X</Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -40,13 +64,48 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   card: {
-    backgroundColor: '#fff',
-    width: '20%',
+    backgroundColor: '#f0f1f8',
+    width: (Dimensions.get('window').width - 12 - 10 * 4) / 5,
+    height: (Dimensions.get('window').width - 12 - 10 * 4) / 5 - 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderTopColor: '#fff',
+    borderLeftColor: '#fff',
+    borderBottomColor: '#e5e6f1',
+    borderRightColor: '#e5e6f1',
+  },
+  cancelCard: {
+    borderBottomColor: '#e5e6f1',
+    borderRightColor: '#e5e6f1',
+    padding: 2,
+  },
+  cardText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#545a73',
+    shadowColor: '#545a73',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
   },
   shadow: {
     shadowColor: '#545a73',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.1,
     shadowRadius: 1,
+  },
+  cancel: {
+    backgroundColor: '#9094b2',
+    flex: 1,
+    width: '100%',
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cancelText: {
+    color: '#fcfeff',
   },
 });

@@ -5,9 +5,16 @@ import Block from '../Block';
 type Props = {
   problemNumbers: string[];
   solutionNumbers: string[];
+  selectedIndex: number;
+  onSelect: (i: number) => void;
 };
 
-const Area = ({problemNumbers, solutionNumbers}: Props) => {
+const Area = ({
+  problemNumbers,
+  solutionNumbers,
+  selectedIndex,
+  onSelect,
+}: Props) => {
   const BLANK = '0';
   const blockIndexArray = useRef([...Array(81).keys()]);
   const areaWidth = Dimensions.get('window').width;
@@ -55,15 +62,6 @@ const Area = ({problemNumbers, solutionNumbers}: Props) => {
     }
   };
 
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-  const onSelect = (index: number) => {
-    if (index === selectedIndex) {
-      setSelectedIndex(-1);
-    } else {
-      setSelectedIndex(index);
-    }
-  };
-
   return (
     <View style={styles.wrapper}>
       <View
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    backgroundColor: '#333',
+    backgroundColor: '#edeff5',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -108,10 +106,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    paddingVertical: 4,
-    marginHorizontal: 6,
+    paddingTop: 6,
+    paddingBottom: 6,
+    marginHorizontal: 2,
     marginTop: 10,
     borderRadius: 6,
-    backgroundColor: '#fff',
+    backgroundColor: '#e5e6f1',
+    borderWidth: 2,
+    borderTopColor: '#dcdfec',
+    borderLeftColor: '#dcdfec',
+    borderBottomColor: '#e5e6f1',
+    borderRightColor: '#e5e6f1',
   },
 });
