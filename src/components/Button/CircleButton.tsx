@@ -1,18 +1,16 @@
-import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, {ReactElement} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 type Props = {
-  name: string;
+  icon: ReactElement;
   size?: number;
-  color?: string;
   badgeText?: string;
 };
 
-function CircleButton({name, size = 16, color = '#333', badgeText}: Props) {
+function CircleButton({icon, size = 16, badgeText}: Props) {
   return (
-    <TouchableOpacity>
-      <Icon name={name} size={size} color={color} />
+    <TouchableOpacity style={styles.container}>
+      <View>{icon}</View>
       {badgeText && (
         <View>
           <Text>{badgeText}</Text>
@@ -23,3 +21,21 @@ function CircleButton({name, size = 16, color = '#333', badgeText}: Props) {
 }
 
 export default CircleButton;
+
+const styles = StyleSheet.create({
+  container: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+
+    shadowColor: '#545a73',
+    shadowOffset: {width: 2, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    elevation: 3,
+  },
+});

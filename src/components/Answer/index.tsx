@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: 6,
-    marginTop: 10,
+    marginTop: 'auto',
   },
   card: {
     backgroundColor: '#f0f1f8',

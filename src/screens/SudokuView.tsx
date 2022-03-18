@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, Text, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Answer from '../components/Answer';
 import Area from '../components/Area';
@@ -68,10 +68,31 @@ const SudokuView = ({}: Props) => {
         selectedIndex={selectedIndex}
         onSelect={onSelectBlock}
       />
-      <View>
-        <CircleButton name="star" />
-        <CircleButton name="" />
-        <CircleButton name="" />
+      <View style={styles.utils}>
+        <CircleButton
+          icon={
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../assets/icons/undo.png')}
+            />
+          }
+        />
+        <CircleButton
+          icon={
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../assets/icons/pencil.png')}
+            />
+          }
+        />
+        <CircleButton
+          icon={
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../assets/icons/hint.png')}
+            />
+          }
+        />
       </View>
       <Answer onChange={onSelectAnswer} />
     </View>
@@ -79,3 +100,14 @@ const SudokuView = ({}: Props) => {
 };
 
 export default SudokuView;
+
+const styles = StyleSheet.create({
+  utils: {
+    flexDirection: 'row',
+    width: '100%',
+    alignSelf: 'flex-start',
+    marginTop: 5,
+    paddingTop: 20,
+    paddingLeft: 6,
+  },
+});
