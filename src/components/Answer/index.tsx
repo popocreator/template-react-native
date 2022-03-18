@@ -27,6 +27,7 @@ const Answer = ({onChange}: Props) => {
     <View style={styles.container}>
       {numbers.map((number, i) => (
         <TouchableOpacity
+          key={i}
           style={[
             styles.card,
             styles.shadow,
@@ -90,12 +91,14 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.1,
     shadowRadius: 1,
+    elevation: 3,
   },
   shadow: {
     shadowColor: '#545a73',
     shadowOffset: {width: 2, height: 4},
     shadowOpacity: 0.1,
     shadowRadius: 1,
+    elevation: 3,
   },
   cancel: {
     backgroundColor: '#9094b2',

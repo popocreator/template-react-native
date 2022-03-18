@@ -3,14 +3,15 @@ import {Dimensions, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Answer from '../components/Answer';
 import Area from '../components/Area';
+import CircleButton from '../components/Button/CircleButton';
 import sudoku from '../lib/sudoku';
 
 type Props = {};
 
 const SudokuView = ({}: Props) => {
-  const [fixedNumbers, setFixedNumbers] = useState<string[]>([]);
-  const [problemNumbers, setProblemNumbers] = useState<string[]>([]);
-  const [solutionNumbers, setSolutionNumbers] = useState<string[]>([]);
+  const [fixedNumbers, setFixedNumbers] = useState<string[]>([]); // 문제
+  const [problemNumbers, setProblemNumbers] = useState<string[]>([]); // 문제 + 사용자 입력
+  const [solutionNumbers, setSolutionNumbers] = useState<string[]>([]); // 해답
 
   useEffect(() => {
     const problemString: string = sudoku.generate() || '';
@@ -56,7 +57,6 @@ const SudokuView = ({}: Props) => {
     <View
       style={{
         flex: 1,
-        // backgroundColor: '#333',
         height: '100%',
         width: '100%',
         flexDirection: 'column',
@@ -68,6 +68,11 @@ const SudokuView = ({}: Props) => {
         selectedIndex={selectedIndex}
         onSelect={onSelectBlock}
       />
+      <View>
+        <CircleButton name="star" />
+        <CircleButton name="" />
+        <CircleButton name="" />
+      </View>
       <Answer onChange={onSelectAnswer} />
     </View>
   );
