@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import Block from '../Block';
 
 type Props = {
@@ -71,6 +71,10 @@ const Area = ({
             width: areaWidth,
           },
         ]}>
+        {/* <View
+          style={{flexDirection: 'row', width: '100%', paddingHorizontal: 24}}>
+          <Text style={styles.title}>Daily sudoku</Text>
+        </View> */}
         <View style={[styles.blockListBorder]}>
           <View style={[styles.blockList]}>
             {blockIndexArray.current.map(index => (
@@ -103,6 +107,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#edeff5',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: '#545a73',
+    paddingBottom: 6,
   },
   blockListBorder: {
     paddingTop: 8,

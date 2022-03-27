@@ -7,7 +7,7 @@ type Props = {
   badgeText?: string;
 };
 
-function CircleButton({icon, size = 16, badgeText}: Props) {
+function RectButton({icon, size = 16, badgeText}: Props) {
   return (
     <TouchableOpacity style={styles.container}>
       <View>{icon}</View>
@@ -20,13 +20,13 @@ function CircleButton({icon, size = 16, badgeText}: Props) {
   );
 }
 
-export default CircleButton;
+export default RectButton;
 
 const styles = StyleSheet.create({
   container: {
     width: 40,
     height: 40,
-    borderRadius: 20,
+    borderRadius: 8,
     backgroundColor: '#f0f1f8',
     justifyContent: 'center',
     alignItems: 'center',
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 2, height: 4},
     shadowOpacity: 0.1,
     shadowRadius: 1,
-    elevation: 3,
+    elevation: 4,
   },
 });

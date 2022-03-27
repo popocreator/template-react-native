@@ -5,11 +5,14 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
+  PixelRatio,
 } from 'react-native';
 
 type Props = {
   onChange: (number: string) => void;
 };
+
+const isLargeHeight = Dimensions.get('window').height * PixelRatio.get() > 2500;
 
 const Answer = ({onChange}: Props) => {
   const [numbers, setNumbers] = useState([
@@ -31,20 +34,31 @@ const Answer = ({onChange}: Props) => {
           style={[
             styles.card,
             styles.shadow,
-            (i + 1) % 5 === 0
+            isLargeHeight && (i + 1) % 5 === 0
               ? {
                   marginRight: 0,
                 }
               : {
                   marginRight: 10,
                 },
+            !isLargeHeight && {
+              flex: 1,
+              marginRight: 4,
+            },
           ]}
           onPress={() => onChange(number)}>
           <Text style={styles.cardText}>{number}</Text>
         </TouchableOpacity>
       ))}
       <TouchableOpacity
-        style={[styles.card, styles.shadow, styles.cancelCard]}
+        style={[
+          styles.card,
+          styles.shadow,
+          styles.cancelCard,
+          !isLargeHeight && {
+            flex: 1,
+          },
+        ]}
         onPress={() => onChange('.')}>
         <View style={styles.cancel}>
           <Text style={[styles.cardText, styles.cancelText]}>X</Text>
@@ -56,17 +70,26 @@ const Answer = ({onChange}: Props) => {
 
 export default Answer;
 
+const width = () => {
+  const isLargeHeight =
+    Dimensions.get('window').height * PixelRatio.get() > 2500;
+  if (isLargeHeight) {
+    return (Dimensions.get('window').width - 12 - 10 * 4) / 5;
+  } else {
+    return 'auto';
+  }
+};
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: 6,
-    marginTop: 'auto',
   },
   card: {
     backgroundColor: '#f0f1f8',
-    width: (Dimensions.get('window').width - 12 - 10 * 4) / 5,
+    width: width(),
     height: (Dimensions.get('window').width - 12 - 10 * 4) / 5 - 10,
     justifyContent: 'center',
     alignItems: 'center',
