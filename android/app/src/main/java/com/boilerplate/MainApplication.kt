@@ -2,7 +2,7 @@ package com.boilerplate
 
 import android.app.Application
 import android.content.Context
-import com.boilerplate.adapter.RNPackage
+// import com.boilerplate.adapter.RNPackage
 import com.facebook.react.*
 import com.facebook.react.bridge.JSIModulePackage
 import com.facebook.soloader.SoLoader
@@ -21,7 +21,7 @@ class MainApplication : Application(), ReactApplication {
             // Packages that cannot be autolinked yet can be added manually here, for
             // example:
             // packages.add(new MyReactNativePackage());
-            packages.add(RNPackage())
+            // packages.add(RNPackage())
             return packages
         }
 
