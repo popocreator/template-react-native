@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Text, SafeAreaView} from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import SudokuView from './src/screens/SudokuView';
 
 export default function App() {
   useEffect(() => {
@@ -79,8 +80,10 @@ export default function App() {
   }, []);
 
   return (
-    <SafeAreaView>
-      <Text>App Component</Text>
+    <SafeAreaView
+      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      {/* <Text>App Component</Text> */}
+      <SudokuView />
     </SafeAreaView>
   );
 }
