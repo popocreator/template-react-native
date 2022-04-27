@@ -1,9 +1,41 @@
-import React, {useEffect} from 'react';
-import {Text, SafeAreaView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, SafeAreaView, AppState} from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import AppStateController, {
+  AppStateControllerReturnProps,
+} from './src/controllers/_AppStateController';
+import DeviceEventController, {
+  DeviceEventControllerReturnProps,
+} from './src/controllers/_DeviceEventController';
 
 export default function App() {
+  let appStateController: AppStateControllerReturnProps;
+  let deviceEventController: DeviceEventControllerReturnProps;
+
+  useEffect(() => {
+    // 컨트롤러 - 초기화
+    appStateController = AppStateController({
+      appState: AppState,
+      onActive: () => {
+        console.log('Running...');
+      },
+    });
+    deviceEventController = DeviceEventController();
+
+    // 컨트롤러 - 이벤트 바인딩
+    appStateController.init();
+    deviceEventController.add('event1', () => {});
+    deviceEventController.add('event2', () => {});
+    deviceEventController.add('event3', () => {});
+
+    // 컨트롤러 - 초기화
+    return () => {
+      appStateController.clear();
+      deviceEventController.clear();
+    };
+  }, []);
+
   useEffect(() => {
     // Must be outside of any component LifeCycle (such as `componentDidMount`).
     PushNotification.configure({
