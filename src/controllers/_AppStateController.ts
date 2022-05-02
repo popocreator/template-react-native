@@ -1,33 +1,24 @@
 import {AppStateStatic, NativeEventSubscription} from 'react-native';
 
-export interface AppStateControllerProps {
-  appState: AppStateStatic;
-  onActive?: () => void;
-}
-
 export interface AppStateControllerReturnProps {
-  init: () => void;
+  init: (appState: AppStateStatic, onActive?: () => void) => void;
   clear: () => void;
 }
 
-export default function AppStateController({
-  appState,
-  onActive,
-}: AppStateControllerProps): AppStateControllerReturnProps {
+function AppStateController(): AppStateControllerReturnProps {
   let subscription: NativeEventSubscription;
 
-  const onChange = (nextAppState: string) => {
-    if (
-      appState.currentState.match(/inactive|background/) &&
-      nextAppState === 'active'
-    ) {
-      console.log('앱이 활성화되었습니다');
-      onActive && onActive();
-    }
-  };
-
   return {
-    init: () => {
+    init: (appState, onActive) => {
+      const onChange = (nextAppState: string) => {
+        if (
+          appState.currentState.match(/inactive|background/) &&
+          nextAppState === 'active'
+        ) {
+          console.log('앱이 활성화되었습니다');
+          onActive && onActive();
+        }
+      };
       subscription = appState.addEventListener('change', onChange);
     },
     clear: () => {
@@ -37,3 +28,5 @@ export default function AppStateController({
     },
   };
 }
+
+export default AppStateController();

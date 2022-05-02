@@ -6,7 +6,7 @@ export interface DeviceEventControllerReturnProps {
   clear: () => void;
 }
 
-export default function DeviceEventController(): DeviceEventControllerReturnProps {
+function DeviceEventController(): DeviceEventControllerReturnProps {
   let subscriptions: any = {};
 
   return {
@@ -30,3 +30,5 @@ export default function DeviceEventController(): DeviceEventControllerReturnProp
     },
   };
 }
+
+export default DeviceEventController();
