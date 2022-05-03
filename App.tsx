@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
-import {Text, SafeAreaView, AppState} from 'react-native';
-import PushNotification from 'react-native-push-notification';
+import {AppState} from 'react-native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 
 // Controller
 import AppStateController from './src/controllers/_AppStateController';
 import DeviceEventController from './src/controllers/_DeviceEventController';
 import PushNotificationController from './src/controllers/_PushNotificationController';
+import RootNavigation from './src/navigation';
 
 export default function App() {
   useEffect(() => {
@@ -26,17 +27,10 @@ export default function App() {
     };
   }, []);
 
-  useEffect(() => {
-    PushNotification.localNotification({
-      channelId: 'channel-id',
-      title: 'channel-id',
-      message: '테스트 팝업',
-    });
-  }, []);
 
   return (
-    <SafeAreaView>
-      <Text>App Component</Text>
-    </SafeAreaView>
+    <NavigationContainer>
+      <RootNavigation />
+    </NavigationContainer>
   );
 }
