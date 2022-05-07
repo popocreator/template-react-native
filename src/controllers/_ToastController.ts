@@ -1,7 +1,7 @@
 import Toast, {ToastOptions} from 'react-native-root-toast';
 
 export interface ToastControllerReturnProps {
-  show: (message: string, options: ToastOptions) => void;
+  show: (message: string, options?: ToastOptions | undefined) => void;
 }
 
 function ToastController(): ToastControllerReturnProps {

@@ -4,6 +4,7 @@ export interface DeviceEventControllerReturnProps {
   add: (key: string, handler: (e: any) => void) => void;
   remove: (key: string) => void;
   clear: () => void;
+  is: (key: string) => boolean;
 }
 
 function DeviceEventController(): DeviceEventControllerReturnProps {
@@ -27,6 +28,14 @@ function DeviceEventController(): DeviceEventControllerReturnProps {
       Object.keys(subscriptions).forEach(
         key => subscriptions[key] && subscriptions[key].remove(),
       );
+    },
+    is: key => {
+      const subscription = subscriptions[key];
+      if (subscription) {
+        return true;
+      } else {
+        return false;
+      }
     },
   };
 }

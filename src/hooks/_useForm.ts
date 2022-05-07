@@ -1,13 +1,16 @@
 import {useState, useCallback} from 'react';
 
-export default function useForm<T>(initialForm: T) {
-  const [form, setForm] = useState(initialForm);
+export default function _useForm<T>(initialForm: T) {
+  const [formData, setFormData] = useState(initialForm);
 
-  const onChange = useCallback((name, value) => {
-    setForm((form: T) => ({...form, [name]: value}));
+  const resetFormData = useCallback(
+    () => setFormData(initialForm),
+    [initialForm],
+  );
+
+  const onChangeFormData = useCallback((name: string, value) => {
+    setFormData((form: T) => ({...form, [name]: value}));
   }, []);
 
-  const reset = useCallback(() => setForm(initialForm), [initialForm]);
-
-  return [form, onChange, reset];
+  return [formData, resetFormData, onChangeFormData];
 }
