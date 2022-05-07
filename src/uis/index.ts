@@ -1,15 +1,8 @@
-import ActivityIndicator from './_ActivityIndicator';
-import Button from './_Button';
-import Pressable from './_Pressable';
-import Switch from './_Switch';
-import Text from './_Text';
-import TextField from './_TextField';
+import ActivityIndicator from './ActivityIndicator';
+import Button from './Button';
+import Pressable from './Pressable';
+import Switch from './Switch';
+import Text from './Text';
+import TextField from './TextField';
 
-export default {
-  ActivityIndicator,
-  Button,
-  Pressable,
-  Switch,
-  Text,
-  TextField,
-};
+export {ActivityIndicator, Button, Pressable, Switch, Text, TextField};
