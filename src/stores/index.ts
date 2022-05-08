@@ -1,2 +1,2 @@
-export {memoState} from './_memoStore';
+export {themeState} from './_themeStore';
 export {userState, planState, accessState} from './_userStore';
