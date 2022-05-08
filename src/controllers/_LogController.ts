@@ -1,4 +1,4 @@
-import {Amplitude, Identify} from '@amplitude/react-native';
+import {Amplitude} from '@amplitude/react-native';
 import crashlytics from '@react-native-firebase/crashlytics';
 
 export const LOG = {
