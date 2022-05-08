@@ -1,5 +1,4 @@
 import {useCallback} from 'react';
-import crashlytics from '@react-native-firebase/crashlytics';
 import {LogController} from '../controllers';
 
 export default function _useLog() {
