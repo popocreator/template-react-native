@@ -1,9 +1,10 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // 라우팅 파라미터
 export type StackParams = {
-  Home: {},
-  Profile:{},
+  Home: {};
+  Profile: {};
 };
 
 const Stack = createNativeStackNavigator<StackParams>();
