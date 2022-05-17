@@ -10,7 +10,7 @@ i18n.use(initReactI18next).init({
   },
   lng: 'en',
   fallbackLng: 'en',
-  ns: ['page'],
+  ns: ['home', 'profile'],
   interpolation: {
     escapeValue: false,
   },
