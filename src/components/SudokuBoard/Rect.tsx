@@ -13,14 +13,17 @@ type Props = {
     area,
     row,
     col,
+    memo,
   }: {
     ri: number;
     area: number;
     row: number;
     col: number;
+    memo: Array<number>;
   }) => void;
   mode: string;
   isAnswer: boolean;
+  memo: Array<number>;
 };
 
 export default function Rect({
@@ -32,6 +35,7 @@ export default function Rect({
   onActive,
   mode,
   isAnswer,
+  memo,
 }: Props) {
   const [height, setHeight] = useState<number>(30);
   const NORMAL = 'normal';
@@ -71,17 +75,28 @@ export default function Rect({
         onPress={() => {
           onActive({row, col, area, ri});
         }}>
-        <Text
-          style={[
-            s.number,
-            // NORMAL === mode && {color: 'black'},
-            // ROW_COL === mode && {color: 'aqua'},
-            // AREA === mode && {color: 'blue'},
-            // ACTIVE === mode && {color: 'red'},
-            isAnswer && {color: 'black'},
-          ]}>
-          {value === 0 ? '' : value}
-        </Text>
+        {value !== 0 && (
+          <Text
+            style={[
+              s.number,
+              // NORMAL === mode && {color: 'black'},
+              // ROW_COL === mode && {color: 'aqua'},
+              // AREA === mode && {color: 'blue'},
+              // ACTIVE === mode && {color: 'red'},
+              isAnswer && {color: 'black'},
+            ]}>
+            {value === 0 ? '' : value}
+          </Text>
+        )}
+        {value === 0 && memo.length > 0 && (
+          <View style={s.innerRect}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((m, i) => (
+              <View key={i} style={s.innerTextBox}>
+                <Text style={s.innerText}>{memo.includes(m) ? m : ''}</Text>
+              </View>
+            ))}
+          </View>
+        )}
       </TouchableOpacity>
     </View>
   );
@@ -101,5 +116,19 @@ const s = StyleSheet.create({
   number: {
     textAlign: 'center',
     color: 'red',
+  },
+  innerRect: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  innerTextBox: {
+    width: '33.333333333333333333333333%',
+    height: '33.333333333333333333333333%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  innerText: {
+    fontSize: 8,
+    fontWeight: 'bold',
   },
 });

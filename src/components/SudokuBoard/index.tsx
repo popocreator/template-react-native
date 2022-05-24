@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Text} from '../../uis';
+import {Switch, Text} from '../../uis';
 import Area from './Area';
 import Board from './Board';
 import KeyPad from './KeyPad';
 import Rect from './Rect';
 import sudoku from '../../lib/_sudoku';
+import MemoKeyPad from './MemoKeyPad';
 
 type Props = {};
 
@@ -15,9 +16,11 @@ type IRect = {
   value?: number;
   ri: number;
   area: number;
+  memo?: Array<number>;
 };
 
 export default function SudokuBoard({}: Props) {
+  const [isMemo, setIsMemo] = useState<boolean>(false);
   const [solutionArray, setSolutionArray] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -40,12 +43,24 @@ export default function SudokuBoard({}: Props) {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
+  const [sudokuMemoArray, setSudokuMemoArray] = useState<number[][][]>([
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], []],
+  ]);
   const [activeRect, setActiveRect] = useState<IRect>({
     ri: 0,
     area: 0,
     row: 0,
     col: 0,
     value: -1,
+    memo: [],
   });
 
   const onActive = ({
@@ -66,6 +81,12 @@ export default function SudokuBoard({}: Props) {
     const newArray = [...sudokuArray];
     newArray[activeRect.area][activeRect.ri] = value;
     setSudokuArray(newArray);
+  };
+
+  const onMemo = (memoArray: []) => {
+    const newArray = [...sudokuMemoArray];
+    newArray[activeRect.area][activeRect.ri] = memoArray || [];
+    setSudokuMemoArray(newArray);
   };
 
   useEffect(() => {
@@ -107,6 +128,7 @@ export default function SudokuBoard({}: Props) {
                     onActive={onActive}
                     mode={mode({ri, row, col, area: ai})}
                     isAnswer={sudokuArray[ai][ri] === solutionArray[ai][ri]}
+                    memo={sudokuMemoArray[ai][ri]}
                   />
                 );
               })}
@@ -114,7 +136,33 @@ export default function SudokuBoard({}: Props) {
           );
         })}
       </Board>
-      <KeyPad onChange={onChange} />
+      <View>
+        <Switch value={isMemo} onValueChange={checked => setIsMemo(checked)} />
+      </View>
+      {!isMemo && <KeyPad onChange={onChange} />}
+      {isMemo && (
+        <MemoKeyPad
+          memo={sudokuMemoArray[activeRect.area][activeRect.ri]}
+          onMemo={value => {
+            if (value === 0) {
+              return false;
+            }
+            const newArray = [...sudokuMemoArray];
+            const activeMemoArray = newArray[activeRect.area][activeRect.ri];
+            if (activeMemoArray.includes(value)) {
+              newArray[activeRect.area][activeRect.ri] = activeMemoArray.filter(
+                a => a !== value,
+              );
+            } else {
+              newArray[activeRect.area][activeRect.ri] = [
+                ...activeMemoArray,
+                value,
+              ];
+            }
+            setSudokuMemoArray(newArray);
+          }}
+        />
+      )}
     </>
   );
 }
