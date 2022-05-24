@@ -1,4 +1,3 @@
-import HomeScreen from './_homeScreen';
-import ProfileScreen from './_profileScreen';
+import SudokuScreen from './_sudokuScreen';
 
-export {HomeScreen, ProfileScreen};
+export {SudokuScreen};

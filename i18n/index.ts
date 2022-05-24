@@ -3,17 +3,17 @@ import {initReactI18next} from 'react-i18next';
 import en from './locales/en';
 import ko from './locales/ko';
 
-i18n.use(initReactI18next).init({
-  resources: {
-    en: en,
-    ko: ko,
-  },
-  lng: 'en',
-  fallbackLng: 'en',
-  ns: ['home', 'profile'],
-  interpolation: {
-    escapeValue: false,
-  },
-});
+// i18n.use(initReactI18next).init({
+//   resources: {
+//     en: en,
+//     ko: ko,
+//   },
+//   lng: 'en',
+//   fallbackLng: 'en',
+//   ns: ['home', 'profile'],
+//   interpolation: {
+//     escapeValue: false,
+//   },
+// });
 
-export default i18n;
+// export default i18n;
